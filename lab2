@@ -1,0 +1,185 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Untitled3.ipynb",
+      "provenance": [],
+      "authorship_tag": "ABX9TyPZoQUdhrBTwXcDaEYg9ccz",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Sushila-Phogat/CE888/blob/master/lab2\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "Er6sMYNw4OW-",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "import matplotlib\n",
+        "import pandas as pd\n",
+        "import seaborn as sns\n",
+        "import numpy as np\n",
+        "from scipy import stats\n",
+        "import math"
+      ],
+      "execution_count": 0,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "x_ZgR5Oq5mWK",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "# Load the data\n",
+        "df = pd.read_csv('https://raw.githubusercontent.com/albanda/CE888/master/lab2%20-%20bootstrap/customers.csv')\n",
+        "data = df.values.T[1]\n",
+        "data=pd.Series(data)"
+      ],
+      "execution_count": 0,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "yObY0umyBj7x",
+        "colab_type": "code",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 34
+        },
+        "outputId": "df848fee-aff2-4e12-c285-d6811c29b9ef"
+      },
+      "source": [
+        "size=data.shape[0]\n",
+        "data_mean=np.mean(data)\n",
+        "def CI_printout(data, interval = 0.95, method = 't'):\n",
+        "  mean_val = data.mean()\n",
+        "  n = data.count()\n",
+        "  stdev = data.std()\n",
+        "  if method == 't':\n",
+        "    test_stat = stats.t.ppf((interval + 1)/2, n)\n",
+        "  elif method == 'z':\n",
+        "    test_stat = stats.norm.ppf((interval + 1)/2)\n",
+        "  lower_bound = mean_val - test_stat * stdev / math.sqrt(n)\n",
+        "  upper_bound = mean_val + test_stat * stdev / math.sqrt(n)\n",
+        "  return mean_val,lower_bound,upper_bound\n",
+        "\n",
+        "CI_printout(data, interval = 0.95, method = 't')\n"
+      ],
+      "execution_count": 39,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "(9.214285714285714, 5.832943413212581, 12.595628015358846)"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 39
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "WQNNwwYw5_2N",
+        "colab_type": "code",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 129
+        },
+        "outputId": "90e126fe-1c52-4a7d-a2a8-bf3cee9dbecc"
+      },
+      "source": [
+        "# Checking the notes from the lecture, create here your own bootstrap function:\n",
+        "# 1. Create an array of samples of shape (n_iterations, sample_size)\n",
+        "# 2. Calculate and save the mean of the array (this is \"data_mean\" that is returned by the function)\n",
+        "# 3. In each iteration:\n",
+        "# 3.1 Get the data corresponding to that iteration (new_samples[iteration, :])\n",
+        "# 3.2 Calculate the mean of the iteration data and store it\n",
+        "# (At this point you should have an array of n_iterations values)\n",
+        "# 4. Calculate the lower and upper bounds for a 95% CI (hint: check the percentile function on Numpy)\n",
+        "# 5. Return data_mean, and the lower and upper bounds of your interval\n",
+        "\n",
+        "\n",
+        "def boostrap_mean(data, size=5, 10):\n",
+        "\n",
+        "\treturn data_mean, lower, upper\n",
+        "\n"
+      ],
+      "execution_count": 26,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "SyntaxError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;36m  File \u001b[0;32m\"<ipython-input-26-d27c1f033fb0>\"\u001b[0;36m, line \u001b[0;32m4\u001b[0m\n\u001b[0;31m    def boostrap_mean(data, size, 1000):\u001b[0m\n\u001b[0m                                     ^\u001b[0m\n\u001b[0;31mSyntaxError\u001b[0m\u001b[0;31m:\u001b[0m invalid syntax\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "gPiWIG4A5_-1",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        ""
+      ],
+      "execution_count": 0,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "FqV5do2g6AHs",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        ""
+      ],
+      "execution_count": 0,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "13si7djy6AL8",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        ""
+      ],
+      "execution_count": 0,
+      "outputs": []
+    }
+  ]
+}
